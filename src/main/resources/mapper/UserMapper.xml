@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vincce.fun.mapper.UserMapper">
+
+	<resultMap type="com.vincce.fun.model.UserVo" id="Base_Result_Map">
+		<id column="uid" jdbcType="INTEGER" property="uId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="sex" jdbcType="BIT" property="sex" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="location" jdbcType="VARCHAR" property="location" />
+	</resultMap>
+	
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="com.vincce.fun.model.UserVo" useGeneratedKeys="true" keyProperty="uId">
+		insert into user (name, sex, email, location)
+			values (
+				#{name,jdbcType=VARCHAR},
+				#{sex,jdbcType=BIT},
+				#{email,jdbcType=VARCHAR},
+				#{location,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 插入选择数据 -->
+	<insert id="insertSelective" parameterType="com.vincce.fun.model.UserVo" useGeneratedKeys="true" keyProperty="uId">
+		insert into user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uid != null">
+				uid,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="location != null">
+				location,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uid != null">
+				#{uid,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=BIT},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="location != null">
+				#{location,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<!-- 获取用户列表 -->
+	<select id="queryUserList" parameterType="java.lang.Integer" resultMap="Base_Result_Map">
+		select * from user
+	</select>
+	
+	<!-- 通过主键获取用户 -->
+	<select id="queryUserByUid" parameterType="java.lang.Integer" resultMap="Base_Result_Map">
+		select * from user where uid = #{uId, jdbcType=INTEGER}
+	</select>
+	
+</mapper>
