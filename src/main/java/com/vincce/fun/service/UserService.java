@@ -6,6 +6,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 
 import com.vincce.fun.mapper.UserMapper;
@@ -19,6 +23,12 @@ public class UserService {
 	
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private RedisTemplate<String,Object> redisTemplate;
+
+	@Autowired
+	private StringRedisTemplate stringRedisTemplate;
 	
 	/**
 	 * 插入数据
@@ -27,6 +37,9 @@ public class UserService {
 	 */
 	public Integer insertUser(UserVo userVo) {
 		userMapper.insert(userVo);
+
+		//先将数据缓存
+		redisTemplate.opsForValue().set(userVo.getUId().toString(),userVo.getName()+userVo.getEmail());
 		return userVo.getUId();
 	}
 	
@@ -86,6 +99,14 @@ public class UserService {
 	 * @return
 	 */
 	public UserVo getUserByUid(Integer uId) {
+
+		//从redis中获取数据
+		Object o = redisTemplate.opsForValue().get(uId.toString());
+
+		if (o != null){
+			return (UserVo) o;
+		}
+
 		//将查询的属性值 赋值到另外一个对象上
 		UserVo userVo = userMapper.queryUserByUid(uId);
 		UserVo user = new UserVo();
