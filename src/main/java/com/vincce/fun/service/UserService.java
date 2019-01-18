@@ -7,9 +7,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 
 import com.vincce.fun.mapper.UserMapper;
@@ -26,9 +23,6 @@ public class UserService {
 
 	@Autowired
 	private RedisTemplate<String,Object> redisTemplate;
-
-	@Autowired
-	private StringRedisTemplate stringRedisTemplate;
 	
 	/**
 	 * 插入数据
@@ -39,7 +33,7 @@ public class UserService {
 		userMapper.insert(userVo);
 
 		//先将数据缓存
-		redisTemplate.opsForValue().set(userVo.getUId().toString(),userVo.getName()+userVo.getEmail());
+		redisTemplate.opsForValue().set(userVo.getUId().toString()+ "-" + userVo.getName(), userVo.getName()+userVo.getEmail());
 		return userVo.getUId();
 	}
 	

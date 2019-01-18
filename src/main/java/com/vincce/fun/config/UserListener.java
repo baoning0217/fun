@@ -1,8 +1,17 @@
 package com.vincce.fun.config;
 
+import java.util.List;
+
+import javax.annotation.Resource;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+
+import com.vincce.fun.model.UserVo;
+import com.vincce.fun.service.UserService;
 
 /**
   Created By BaoNing On 2019年1月15日
@@ -25,17 +34,35 @@ import javax.servlet.annotation.WebListener;
   
 */
 @WebListener
-public class MyListener implements ServletContextListener {
+public class UserListener implements ServletContextListener {
+	
+	private static final String ALL_USER = "ALL_USER LIST";
+	
+	@Resource
+	private RedisTemplate<String, Object> redisTemplate;
+	
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		// TODO Auto-generated method stub
+		
+		//查询数据库所有的用户
+		List<UserVo> users = userService.getUserList();
+		
+		//清楚缓存中的用户数据
+		redisTemplate.delete(ALL_USER);
+		
+		//将数据缓存到redis中
+		redisTemplate.opsForList().leftPushAll(ALL_USER, users);
+		
+	
 		
 	}
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
