@@ -21,6 +21,12 @@ spring:
       file-size-threshold: 0 #文件大小阈值，当大于这个阈值时将写入磁盘，否则存在内存中，默认是0
       resolve-lazily: false #判断是否要延迟解析文件
       
+  # 配置redis
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    # password:
 
 # 配置log
 logging:
@@ -29,5 +35,5 @@ logging:
     com.vincce.* : debug #配置日志输出的包和级别
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %-5level - %logger{36} - %msg%n"
-  
+
     
