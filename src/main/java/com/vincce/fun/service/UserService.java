@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -17,6 +19,8 @@ import com.vincce.fun.model.UserVo;
 */
 @Service
 public class UserService {
+
+	Logger logger = LogManager.getLogger(UserService.class);
 	
 	@Autowired
 	private UserMapper userMapper;
@@ -31,7 +35,7 @@ public class UserService {
 	 */
 	public Integer insertUser(UserVo userVo) {
 		userMapper.insert(userVo);
-
+		logger.info("插入新用户:" + userVo.getName());
 		//先将数据缓存
 		redisTemplate.opsForValue().set(userVo.getUId().toString()+ "-" + userVo.getName(), userVo.getName()+userVo.getEmail());
 		return userVo.getUId();
@@ -93,13 +97,6 @@ public class UserService {
 	 * @return
 	 */
 	public UserVo getUserByUid(Integer uId) {
-
-		//从redis中获取数据
-		Object o = redisTemplate.opsForValue().get(uId.toString());
-
-		if (o != null){
-			return (UserVo) o;
-		}
 
 		//将查询的属性值 赋值到另外一个对象上
 		UserVo userVo = userMapper.queryUserByUid(uId);

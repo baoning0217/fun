@@ -27,6 +27,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 			<exclusions>
+				<!-- 排查SpringBoot默认日志 -->
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-logging</artifactId>
@@ -85,6 +86,12 @@
           <groupId>com.qcloud</groupId>
           <artifactId>cos_api</artifactId>
           <version>5.4.10</version>
+		</dependency>
+
+		<!--添加安全框架-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		
 	</dependencies>

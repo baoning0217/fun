@@ -66,7 +66,10 @@
 	
 	<!-- 通过主键获取用户 -->
 	<select id="queryUserByUid" parameterType="java.lang.Integer" resultMap="Base_Result_Map">
-		select * from user where uid = #{uId, jdbcType=INTEGER}
+		select * from user
+		<where>
+			uid = #{uId, jdbcType=INTEGER}
+		</where>
 	</select>
 	
 </mapper>

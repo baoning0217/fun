@@ -36,28 +36,12 @@ import com.vincce.fun.service.UserService;
 @WebListener
 public class UserListener implements ServletContextListener {
 	
-	private static final String ALL_USER = "ALL_USER LIST";
-	
-	@Resource
-	private RedisTemplate<String, Object> redisTemplate;
-	
 	@Autowired
 	private UserService userService;
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		
-		//查询数据库所有的用户
-		List<UserVo> users = userService.getUserList();
-		
-		//清楚缓存中的用户数据
-		redisTemplate.delete(ALL_USER);
-		
-		//将数据缓存到redis中
-		redisTemplate.opsForList().leftPushAll(ALL_USER, users);
-		
-	
-		
+
 	}
 
 	@Override

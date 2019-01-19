@@ -30,10 +30,12 @@ spring:
 
 # 配置log
 logging:
+#  config: classpath:log4j2.xml
   file: C:\workspace\EP\fun\logs\logs.log #配置日志输出保存的位置
   level:
     com.vincce.* : debug #配置日志输出的包和级别
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %-5level - %logger{36} - %msg%n"
+
 
     
