@@ -1,16 +1,10 @@
 package com.vincce.fun.config;
 
-import java.util.List;
-
-import javax.annotation.Resource;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-
-import com.vincce.fun.model.UserVo;
 import com.vincce.fun.service.UserService;
 
 /**

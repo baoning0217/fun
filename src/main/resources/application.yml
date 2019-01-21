@@ -26,14 +26,22 @@ spring:
     database: 10
     host: 127.0.0.1
     port: 6379
-    # password:
+  mvc:
+    favicon:
+      enabled: true
+  security:
+    user:
+      name: admin
+      password: 123456
+      roles:
+      - ADMIN
 
 # 配置log
 logging:
 #  config: classpath:log4j2.xml
   file: C:\workspace\EP\fun\logs\logs.log #配置日志输出保存的位置
   level:
-    com.vincce.* : debug #配置日志输出的包和级别
+    com.vincce.* : info #配置日志输出的包和级别
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %-5level - %logger{36} - %msg%n"
 
