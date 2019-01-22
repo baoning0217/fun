@@ -10,20 +10,20 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 /**
  * Created By Baoning On 2019-01-17
  */
-@Configuration
-public class RedisConfig {
-
-    @Autowired
-    private RedisTemplate redisTemplate;
-
-    @Bean
-    public RedisTemplate<String, Object> stringSerializerRedisTemplate() {
-        RedisSerializer<String> stringSerializer = new StringRedisSerializer();
-        redisTemplate.setKeySerializer(stringSerializer);
-        redisTemplate.setValueSerializer(stringSerializer);
-        redisTemplate.setHashKeySerializer(stringSerializer);
-        redisTemplate.setHashValueSerializer(stringSerializer);
-        return redisTemplate;
-    }
-
-}
+//@Configuration
+//public class RedisConfig {
+//
+//    @Autowired
+//    private RedisTemplate<String, Object> redisTemplate;
+//
+//    @Bean
+//    public RedisTemplate<String, Object> stringSerializerRedisTemplate() {
+//        RedisSerializer<String> stringSerializer = new StringRedisSerializer();
+//        redisTemplate.setKeySerializer(stringSerializer);
+//        redisTemplate.setValueSerializer(stringSerializer);
+//        redisTemplate.setHashKeySerializer(stringSerializer);
+//        redisTemplate.setHashValueSerializer(stringSerializer);
+//        return redisTemplate;
+//    }
+//
+//}

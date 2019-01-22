@@ -17,11 +17,11 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  */
 public class RedisService {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
-
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+//    @Autowired
+//    private RedisTemplate redisTemplate;
+//
+//    @Autowired
+//    private StringRedisTemplate stringRedisTemplate;
 
 
 

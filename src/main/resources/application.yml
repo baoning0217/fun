@@ -35,6 +35,16 @@ spring:
       password: 123456
       roles:
       - ADMIN
+    filter:
+      order: -100
+      dispatcher-types: # 安全过滤器责任链拦截的分发类型
+      - async
+      - error
+      - request
+    oauth2:
+      client:
+        provider: # Oauth提供者详细配置信息
+        registration: # OAuth客户端登记信息
 
 # 配置log
 logging:

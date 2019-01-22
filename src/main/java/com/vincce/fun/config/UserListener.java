@@ -4,9 +4,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import com.vincce.fun.service.UserService;
-
 /**
   Created By BaoNing On 2019年1月15日
   
@@ -30,9 +27,6 @@ import com.vincce.fun.service.UserService;
 @WebListener
 public class UserListener implements ServletContextListener {
 	
-	@Autowired
-	private UserService userService;
-
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 
