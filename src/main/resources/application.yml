@@ -45,7 +45,23 @@ spring:
       client:
         provider: # Oauth提供者详细配置信息
         registration: # OAuth客户端登记信息
-
+  data:
+    mongodb:
+      uri: mongodb://192.168.207.200:27017/test
+      
+# 配置rabbitmq
+  rabbitmq:
+    host: 192.168.207.200
+    port: 5672
+    username: admin
+    password: 123456
+    # 是否确认发送的消息已经被消费
+    publisher-confirms: true
+    params: 
+      exchangeName: logExchange
+      routingKey: log
+      queueName: log.vincce.log
+      
 # 配置log
 logging:
 #  config: classpath:log4j2.xml
@@ -54,6 +70,5 @@ logging:
     com.vincce.* : info #配置日志输出的包和级别
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %-5level - %logger{36} - %msg%n"
-
-
-    
+ 
+ 
